@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#211a17" />
+    <meta name="description" content="Discover trusted Afro-Caribbean hair professionals across London." />
+    <title>Tya’s — Afro-Caribbean Hair Network</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="site-header">
+        <a href="#" class="brand" aria-label="Tya’s home">
+          <span class="brand-mark">T</span>
+          <span>Tya’s</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <button class="nav-link active" data-view="discover">Discover</button>
+          <button class="nav-link" data-view="network">Stylist network</button>
+        </nav>
+        <button class="btn btn-dark" id="joinStylistBtn">List your services</button>
+      </header>
+
+      <main>
+        <section class="view active" id="discoverView">
+          <section class="hero">
+            <div class="hero-copy">
+              <div class="eyebrow">London · Afro-Caribbean hair specialists</div>
+              <h1>Find someone who actually knows your hair.</h1>
+              <p>Compare specialists by style, location, price and real client feedback. No endless Instagram searching.</p>
+            </div>
+            <div class="search-panel">
+              <label class="search-field wide">
+                <span>What do you need?</span>
+                <input id="searchInput" type="search" placeholder="Knotless braids, loc retwist, silk press…" />
+              </label>
+              <label class="search-field">
+                <span>Area</span>
+                <select id="areaFilter">
+                  <option value="all">All London</option>
+                  <option>North London</option>
+                  <option>South London</option>
+                  <option>East London</option>
+                  <option>West London</option>
+                  <option>Central London</option>
+                </select>
+              </label>
+              <button class="btn btn-accent" id="searchBtn">Find stylists</button>
+            </div>
+          </section>
+
+          <section class="content-wrap">
+            <div class="quick-filters" id="quickFilters" aria-label="Popular services"></div>
+
+            <div class="section-heading split">
+              <div>
+                <span class="eyebrow dark">Discover</span>
+                <h2>Recommended in London</h2>
+                <p id="resultCount"></p>
+              </div>
+              <div class="filter-row">
+                <label>
+                  <span>Max starting price</span>
+                  <select id="priceFilter">
+                    <option value="999">Any price</option>
+                    <option value="50">Up to £50</option>
+                    <option value="80">Up to £80</option>
+                    <option value="120">Up to £120</option>
+                  </select>
+                </label>
+                <label class="toggle-label">
+                  <input type="checkbox" id="mobileFilter" />
+                  <span>Mobile service</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="stylist-grid" id="stylistGrid"></div>
+            <div class="empty-state hidden" id="emptyState">
+              <h3>No exact matches yet.</h3>
+              <p>Try widening the location, price or service filter.</p>
+              <button class="btn btn-light" id="clearFiltersBtn">Clear filters</button>
+            </div>
+          </section>
+
+          <section class="trust-section">
+            <div>
+              <span class="eyebrow">Built for textured hair</span>
+              <h2>Better than guessing from a generic salon listing.</h2>
+            </div>
+            <div class="trust-grid">
+              <article>
+                <span class="number">01</span>
+                <h3>Specific expertise</h3>
+                <p>Search for the exact service you need, from starter locs to knotless braids and silk presses.</p>
+              </article>
+              <article>
+                <span class="number">02</span>
+                <h3>Prices upfront</h3>
+                <p>See advertised starting prices, extras and whether hair is included before reaching out.</p>
+              </article>
+              <article>
+                <span class="number">03</span>
+                <h3>Reputation that travels</h3>
+                <p>Client reviews and stylist-to-stylist referrals help great professionals build a portable reputation.</p>
+              </article>
+            </div>
+          </section>
+        </section>
+
+        <section class="view" id="networkView">
+          <section class="network-hero">
+            <div>
+              <span class="eyebrow">For professionals</span>
+              <h1>Pass work around. Keep clients looked after.</h1>
+              <p>Post overflow jobs, find specialists you trust, and build a professional network across London.</p>
+            </div>
+            <button class="btn btn-accent" id="postReferralBtn">Post a referral request</button>
+          </section>
+
+          <section class="content-wrap network-layout">
+            <div>
+              <div class="section-heading">
+                <span class="eyebrow dark">Open requests</span>
+                <h2>Who needs cover?</h2>
+              </div>
+              <div id="referralList" class="referral-list"></div>
+            </div>
+            <aside class="network-aside">
+              <h3>Why a stylist network?</h3>
+              <p>Fully booked? Client needs a service you do not offer? Keep the relationship by referring them to someone credible.</p>
+              <div class="mini-stat"><strong id="networkCount">0</strong><span>professionals in demo network</span></div>
+              <div class="mini-stat"><strong id="requestCount">0</strong><span>open referral requests</span></div>
+            </aside>
+          </section>
+        </section>
+      </main>
+
+      <footer>
+        <div class="brand footer-brand"><span class="brand-mark">T</span><span>Tya’s</span></div>
+        <p>Working prototype · London first, UK next.</p>
+      </footer>
+    </div>
+
+    <div class="modal-backdrop hidden" id="modalBackdrop" aria-hidden="true"></div>
+
+    <section class="modal hidden" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileName">
+      <button class="modal-close" data-close-modal aria-label="Close">×</button>
+      <div id="profileContent"></div>
+    </section>
+
+    <section class="modal compact hidden" id="enquiryModal" role="dialog" aria-modal="true" aria-labelledby="enquiryTitle">
+      <button class="modal-close" data-close-modal aria-label="Close">×</button>
+      <div class="modal-header">
+        <span class="eyebrow dark">Contact</span>
+        <h2 id="enquiryTitle">Send an enquiry</h2>
+        <p id="enquirySubtext"></p>
+      </div>
+      <form id="enquiryForm" class="stack-form">
+        <input type="hidden" id="enquiryStylistId" />
+        <label>Name<input required id="enquiryName" placeholder="Your name" /></label>
+        <label>Contact details<input required id="enquiryContact" placeholder="Phone, WhatsApp or email" /></label>
+        <label>What do you need?<textarea required id="enquiryMessage" rows="4" placeholder="Style, date, length, area…"></textarea></label>
+        <button class="btn btn-dark" type="submit">Send enquiry</button>
+      </form>
+    </section>
+
+    <section class="modal compact hidden" id="stylistModal" role="dialog" aria-modal="true" aria-labelledby="stylistFormTitle">
+      <button class="modal-close" data-close-modal aria-label="Close">×</button>
+      <div class="modal-header">
+        <span class="eyebrow dark">Professional listing</span>
+        <h2 id="stylistFormTitle">List your services</h2>
+        <p>Create a local demo profile. In production this would become a verified account.</p>
+      </div>
+      <form id="stylistForm" class="stack-form two-col-form">
+        <label>Name / business name<input required id="stylistName" placeholder="e.g. Nia Braids" /></label>
+        <label>London area<select required id="stylistArea"><option>North London</option><option>South London</option><option>East London</option><option>West London</option><option>Central London</option></select></label>
+        <label class="full">Services<input required id="stylistServices" placeholder="Knotless braids, cornrows, twists" /></label>
+        <label>Starting price (£)<input required min="0" type="number" id="stylistPrice" placeholder="60" /></label>
+        <label>Instagram / contact<input required id="stylistContact" placeholder="@yourhandle or phone" /></label>
+        <label class="toggle-label full"><input type="checkbox" id="stylistMobile" /><span>I offer mobile appointments</span></label>
+        <label class="full">About<textarea required id="stylistBio" rows="3" placeholder="Tell clients what you specialise in…"></textarea></label>
+        <button class="btn btn-dark full" type="submit">Create listing</button>
+      </form>
+    </section>
+
+    <section class="modal compact hidden" id="referralModal" role="dialog" aria-modal="true" aria-labelledby="referralTitle">
+      <button class="modal-close" data-close-modal aria-label="Close">×</button>
+      <div class="modal-header">
+        <span class="eyebrow dark">Stylist network</span>
+        <h2 id="referralTitle">Post a referral request</h2>
+        <p>Share overflow work or find someone with the right specialism.</p>
+      </div>
+      <form id="referralForm" class="stack-form">
+        <label>Service needed<input required id="referralService" placeholder="e.g. Knotless braids" /></label>
+        <label>Area<input required id="referralArea" placeholder="e.g. Brixton" /></label>
+        <label>Budget / price<input required id="referralBudget" placeholder="e.g. £120" /></label>
+        <label>Details<textarea required id="referralDetails" rows="4" placeholder="Date, length, client requirements…"></textarea></label>
+        <button class="btn btn-dark" type="submit">Post request</button>
+      </form>
+    </section>
+
+    <div class="toast hidden" id="toast" role="status"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
